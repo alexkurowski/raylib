@@ -4016,7 +4016,18 @@ static void CursorEnterCallback(GLFWwindow *window, int enter)
 // NOTE: Window resizing not allowed by default
 static void WindowSizeCallback(GLFWwindow *window, int width, int height)
 {
-    SetupViewport(width, height);    // Reset viewport and projection matrix for new size
+    int viewportWidth = width;
+    int viewportHeight = height;
+
+#if defined(PLATFORM_DESKTOP) && defined(SUPPORT_HIGH_DPI)
+    float scaleX = 1.0f;
+    float scaleY = 1.0f;
+    glfwGetWindowContentScale(window, &scaleX, &scaleY);
+    viewportWidth *= scaleX;
+    viewportHeight *= scaleY;
+#endif
+
+    SetupViewport(viewportWidth, viewportHeight);    // Reset viewport and projection matrix for new size
 
     // Set current screen size
     CORE.Window.screen.width = width;
