@@ -719,10 +719,6 @@ void InitWindow(int width, int height, const char *title)
     // NOTE: We setup a 1px padding on char rectangle to avoid pixel bleeding on MSAA filtering
     SetShapesTexture(GetFontDefault().texture, (Rectangle){ rec.x + 1, rec.y + 1, rec.width - 2, rec.height - 2 });
 #endif
-#if defined(PLATFORM_DESKTOP) && defined(SUPPORT_HIGH_DPI)
-    // Set default font texture filter for HighDPI (blurry)
-    SetTextureFilter(GetFontDefault().texture, FILTER_BILINEAR);
-#endif
 
 #if defined(PLATFORM_RPI)
     // Init raw input system
